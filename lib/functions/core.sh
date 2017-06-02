@@ -48,7 +48,10 @@ check_connection_ssh() {
 }
 
 deploy() {
-    OPT="/opt"
+    local OPT="/opt"
+    local BUILD_FOLDER="$logsdir/.gitbuild"
+    local BUILD_CURRENT=$AISS_BUILD
+    local BUILD_NEW="$(expr $BUILD_CURRENT + 1)"
     my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
     waitfor
     run_cmd "cd $OPT"
@@ -56,14 +59,31 @@ deploy() {
     [[ -d AITools ]] && {
         run_cmd "mv AITools AITools.old"
         mv AITools AITools.old
+        if [[ $? -ne 0 ]]; then
+            my_log_error "error during move AITools to AITools.old"
+            exit
+        else
+            my_log_success "mv AITools AITools.old"
+        fi
     } || {
-        my_log_warning "Error during move AITools to AITools.old"
+        my_log_warning "Folder AITools does not exists. Ready to launch git clone command..."
     }
     run_cmd "git clone $GIT_REPOSITORY"
     git clone $GIT_REPOSITORY
+    cd $AISS_NAME && mkdir logs
     cd $directory
-    mkdir logs
-    git log > $logsdir/.gitbuild
+    echo -e "New $AISS_NAME version has been released\n
+    -------------------------------------------
+    Product : $AISS_NAME
+    Build : $AISS_BUILD
+    Version : $AISS_VERSION
+    Date : $AISS_DATE
+    Owner : $AISS_USERDEV
+    -------------------------------------------\n" > $BUILD_FOLDER
+    echo -e "Log\n" >> $BUILD_FOLDER
+    git log --oneline >> $BUILD_FOLDER
+    echo -e "\nLog Details\n" >> $BUILD_FOLDER
+    git log >> $BUILD_FOLDER
     if [[ $? -ne 0 ]]; then
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has failed"
@@ -72,10 +92,11 @@ deploy() {
     else
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has success"
+        local build="[$AISS_NAME] New build has released $BUILD_NEW by $SUDO_USER"
         my_log_success "$FUNCNAME action has success, see more logs/$lastFile"
-        my_log_success "[$AISS_NAME] New build has released $(expr $AISS_BUILD + 1) by $SUDO_USER"
         mailer "$lastFile" "$subject"
-        mailer .gitbuild "[$AISS_NAME] New build has released $(expr $AISS_BUILD + 1) by $SUDO_USER"
+        my_log_success "$build"
+        mailer .gitbuild "$build"
     fi
 }
 
