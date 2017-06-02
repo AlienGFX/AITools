@@ -9,7 +9,8 @@ RSH() {
     local user=$1
     local host=$2
     local cmd=$3
-    ssh "$user@$host" "$cmd" > /dev/null 2>&1
+    ssh "$user@$host" "$cmd" > /dev/null 2>&1 &
+    rshStatus=$?
 }
 
 GEN_HTP() {
@@ -38,7 +39,7 @@ run_cmd() {
 check_connection_ssh() {
     for host in $SYS_WAVE_DEV_0 $SYS_WAVE_PRD_1 $SYS_WAVE_PRD_2 $SYS_WAVE_PRD_3; do
         RSH root $host hostname
-        if [[ $? -ne 0 ]]; then
+        if [[ $rshStatus -ne 0 ]]; then
             my_log_error "SSH connection for $host has failed. Please check the ssh key"
         else
             my_log_success "SSH connection for $host has been successfully established"
@@ -118,7 +119,7 @@ updater() {
     waitfor
     for hosts in $*; do
         RSH root $hosts "$cmd > $tmpdist"
-        if [[ $? -ne 0 ]]; then
+        if [[ $rshStatus -ne 0 ]]; then
             my_log_error "Error during update on $hosts, more details: $tmpdist"
         else
             my_log_success "Update on $hosts is success, more details: $tmpdist"
@@ -148,7 +149,7 @@ upgrader() {
     waitfor
     for hosts in $*; do
         RSH root $hosts "$cmd > $tmpdist"
-        if [[ $? -ne 0 ]]; then
+        if [[ $rshStatus -ne 0 ]]; then
             my_log_error "Error during upgrade on $hosts, more details: $tmpdist"
         else
             my_log_success "Upgrade on $hosts is success, more details: $tmpdist"
