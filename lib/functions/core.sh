@@ -61,7 +61,9 @@ deploy() {
     }
     run_cmd "git clone $GIT_REPOSITORY"
     git clone $GIT_REPOSITORY
-    cd $directory && git log > $logsdir/.gitbuild
+    cd $directory
+    mkdir logs
+    git log > $logsdir/.gitbuild
     if [[ $? -ne 0 ]]; then
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has failed"
