@@ -26,13 +26,11 @@ This script must be executed to backuppc.
 
 With this script, you can :
 - Installing any packages to instances differently
-(nfs-common nfs-kernel-server to SRV-NFS)
-(iscsitarget iscsitarget-dkms open-iscsi to SRV-ISCSI)
-(backuppc to SRV-BACKUP)
 - Configure and Mount ISCSI Lun from SRV-ISCSI to SRV-BACKUP
 - Configure and Mount NFS shared to SRV-NFS
 
 AISS.sh can backup to nfs share (srv-nfs) to lun iscsi (srv-iscsi)
+
 Following this example :
 
               +-----------+        +-----------+
@@ -62,7 +60,7 @@ The main script is located to the following directory : **/opt/AITools/aiss.sh**
 
 Several parameters are available with the script :
 
-```shell
+```sh
 Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|monitor|mount|unmount|start|stop|restart|status|save|service|reset|test-ssh}
        install                           :  install all dependancies to the servers
        install-csgo <host>               :  install csgo and all dependancies to the servers
@@ -96,10 +94,12 @@ Then, you can test all of the others parameters :)
 Please, use sudo... :)
 
 Be careful :
+
 For more checks on these servers, you are root :
 ```sh
 $ sudo su - root
 ```
+
 Thanks to insert the good format with regex, example for configure to save SRV-NFS :
 
 ```sh
