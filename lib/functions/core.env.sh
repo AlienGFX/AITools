@@ -19,6 +19,9 @@ sendmail="on"
 inbox="AITools-production@rkservices.fr"
 whosend="admin@rkservices.fr"
 
+# git config
+GIT_REPOSITORY="git@github.com:AlienGFX/AITools.git"
+
 # core infrastructure
 SYS_NODE_1="ns301969.ip-94-23-0.eu"
 SYS_NODE_2="ns3014083.ip-149-202-65.eu"
@@ -42,6 +45,11 @@ PKG_BACKUP="backuppc open-iscsi"
 
 # global var
 AISS_NAME="AITools"
-AISS_VERSION="0.2"
-AISS_BUILD="23032017"
+AISS_DATE="02062017"
+AISS_BUILD="1000"
+AISS_VERSION="1.0"
 AISS_PID="$$"
+
+# user params
+AISS_USER="aisoft"
+AISS_USERDEV="krue"
