@@ -46,6 +46,36 @@ check_connection_ssh() {
     done
 }
 
+deploy() {
+    OPT="/opt"
+    my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
+    waitfor
+    run_cmd "cd $OPT"
+    cd $OPT
+    [[ -d AITools ]] && {
+        run_cmd "mv AITools AITools.old"
+        mv AITools AITools.old
+    } || {
+        my_log_warning "Error during move AITools to AITools.old"
+    }
+    run_cmd "git clone $GIT_REPOSITORY"
+    git clone $GIT_REPOSITORY
+    cd $directory && git log > $logsdir/.gitbuild
+    if [[ $? -ne 0 ]]; then
+        local lastFile="$(ls -1rt $logsdir | tail -n1)"
+        local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has failed"
+        my_log_error "$FUNCNAME action has failed, see more logs/$lastFile"
+        mailer "$lastFile" "$subject"
+    else
+        local lastFile="$(ls -1rt $logsdir | tail -n1)"
+        local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has success"
+        my_log_success "$FUNCNAME action has success, see more logs/$lastFile"
+        my_log_success "[$AISS_NAME] New build has released $(expr $AISS_BUILD + 1) by $SUDO_USER"
+        mailer "$lastFile" "$subject"
+        mailer .gitbuild "[$AISS_NAME] New build has released $(expr $AISS_BUILD + 1) by $SUDO_USER"
+    fi
+}
+
 monitor() {
     local bin="/usr/bin/motdstat"
     [ -x $bin ] || {
