@@ -68,9 +68,17 @@ deploy() {
     } || {
         my_log_warning "Folder AITools does not exists. Ready to launch git clone command..."
     }
+    my_log_seteup "Clone $AISS_NAME github repository"
     run_cmd "git clone $GIT_REPOSITORY"
     git clone $GIT_REPOSITORY
+    my_log_setup "Create logs folder"
+    run_cmd "cd $AISS_NAME && mkdir logs"
     cd $AISS_NAME && mkdir logs
+    my_log_setup "Apply chmod permissions"
+    run_cmd "chmod 750 aiss.sh"
+    chmod 750 aiss.sh
+    run_cmd "chmod 644 lib/functions/*"
+    chmod 644 lib/functions/*
     cd $directory
     echo -e "New $AISS_NAME version has been deployed\n
     -------------------------------------------
@@ -93,7 +101,7 @@ deploy() {
     else
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has success"
-        local build="[$AISS_NAME] version $AISS_VERSION build $BUILD_CURRENt has been deployed by $SUDO_USER"
+        local build="[$AISS_NAME] version $AISS_VERSION build $BUILD_CURRENT has been deployed by $SUDO_USER"
         my_log_success "$FUNCNAME action has success, see more logs/$lastFile"
         mailer "$lastFile" "$subject"
         my_log_success "$build"
