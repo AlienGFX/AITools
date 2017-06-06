@@ -58,10 +58,16 @@ Following this example :
 ### Usage of the script
 The main script is located to the following directory : **/opt/AITools/aiss.sh**
 
+You can create a new environment with the following comman :
+
+```sh
+$ sudo ./aiss.sh deploy
+```
+
 Several parameters are available with the script :
 
 ```sh
-Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|unmount|start|stop|restart|status|save|service|reset|test-ssh}
+Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|reset|test-ssh}
        install                           :  install all dependancies to the servers
        install-csgo <host>               :  install csgo and all dependancies to the servers
        uninstall                         :  uninstall all dependancies to the servers
@@ -71,8 +77,8 @@ Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy
        configure                         :  deploy keys and configure dependancies
        deploy                            :  clone repo and deploy AITools into /opt/AITools
        monitor                           :  getting information for monitoring tools
-       mount                             :  mount ISCSI for srv-backup
-       unmount                           :  unmount ISCSI for srv-backup
+       mount <host> <src> <device>       :  manage device mounting to servers with hostname source device
+       umount <host> <device>            :  manage device umounting to servers with hostname device
        start                             :  start all services to servers
        stop                              :  stop all services to servers
        restart                           :  restart all services to servers
