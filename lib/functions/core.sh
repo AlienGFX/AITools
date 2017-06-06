@@ -77,8 +77,8 @@ deploy() {
     my_log_setup "Apply chmod permissions"
     run_cmd "chmod 750 aiss.sh"
     chmod 750 aiss.sh
-    run_cmd "chmod 644 lib/functions/*"
-    chmod 644 lib/functions/*
+    run_cmd "chmod 640 lib/functions/*"
+    chmod 640 lib/functions/*
     cd $directory
     echo -e "New $AISS_NAME version has been deployed\n
     -------------------------------------------
