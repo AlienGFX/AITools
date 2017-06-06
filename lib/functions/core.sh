@@ -72,13 +72,14 @@ deploy() {
     git clone $GIT_REPOSITORY
     cd $AISS_NAME && mkdir logs
     cd $directory
-    echo -e "New $AISS_NAME version has been released\n
+    echo -e "New $AISS_NAME version has been deployed\n
     -------------------------------------------
     Product : $AISS_NAME
     Build : $AISS_BUILD
     Version : $AISS_VERSION
     Date : $AISS_DATE
     Owner : $AISS_USERDEV
+    Path : $OPT/$AISS_NAME
     -------------------------------------------\n" > $BUILD_FOLDER
     echo -e "Log\n" >> $BUILD_FOLDER
     git log --oneline >> $BUILD_FOLDER
@@ -92,7 +93,7 @@ deploy() {
     else
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has success"
-        local build="[$AISS_NAME] New build has released $BUILD_NEW by $SUDO_USER"
+        local build="[$AISS_NAME] version $AISS_VERSION build $BUILD_CURRENt has been deployed by $SUDO_USER"
         my_log_success "$FUNCNAME action has success, see more logs/$lastFile"
         mailer "$lastFile" "$subject"
         my_log_success "$build"
