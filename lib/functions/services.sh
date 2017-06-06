@@ -71,10 +71,9 @@ status_svc() {
     my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
     waitfor 1
     check_connection_ssh
-    #action_svc is froozen"
-    #action_svc_nfs status || my_log_warning "Probably service $PKG_NFS is stopped"
-    #action_svc_iscsi status || my_log_warning "Probably service $PKG_ISCSI is stopped"
-    #action_svc_backup status || my_log_warning "Probably service $PKG_BACKUP is stopped"
+    action_svc_nfs status || my_log_warning "Probably service $PKG_NFS is stopped"
+    action_svc_iscsi status || my_log_warning "Probably service $PKG_ISCSI is stopped"
+    action_svc_backup status || my_log_warning "Probably service $PKG_BACKUP is stopped"
     if [[ $? -ne 0 ]]; then
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has failed"
