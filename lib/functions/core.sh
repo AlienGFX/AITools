@@ -68,7 +68,7 @@ deploy() {
     } || {
         my_log_warning "Folder AITools does not exists. Ready to launch git clone command..."
     }
-    my_log_seteup "Clone $AISS_NAME github repository"
+    my_log_setup "Clone $AISS_NAME github repository"
     run_cmd "git clone $GIT_REPOSITORY"
     git clone $GIT_REPOSITORY
     my_log_setup "Create logs folder"
