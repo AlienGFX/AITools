@@ -61,7 +61,7 @@ The main script is located to the following directory : **/opt/AITools/aiss.sh**
 Several parameters are available with the script :
 
 ```sh
-Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|monitor|mount|unmount|start|stop|restart|status|save|service|reset|test-ssh}
+Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|unmount|start|stop|restart|status|save|service|reset|test-ssh}
        install                           :  install all dependancies to the servers
        install-csgo <host>               :  install csgo and all dependancies to the servers
        uninstall                         :  uninstall all dependancies to the servers
@@ -69,6 +69,7 @@ Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|monito
        upgrade <host1|host2>             :  upgrade all dependancies to the servers. Please enter the hostname
        service <host> <app> <action>     :  manage all services to servers with hostname appname action
        configure                         :  deploy keys and configure dependancies
+       deploy                            :  clone repo and deploy AITools into /opt/AITools
        monitor                           :  getting information for monitoring tools
        mount                             :  mount ISCSI for srv-backup
        unmount                           :  unmount ISCSI for srv-backup
