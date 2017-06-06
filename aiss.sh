@@ -28,7 +28,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 usage() {
-    echo -e "Usage: $BWhite$0 $BRed{install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|unmount|start|stop|restart|status|save|service|reset|test-ssh}"
+    echo -e "Usage: $BWhite$0 $BRed{install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|reset|test-ssh}"
     echo -e "$Red       install                           $White: $Green install all dependancies to the servers"
     echo -e "$Red       install-csgo <host>               $White: $Green install csgo and all dependancies to the servers"
     echo -e "$Red       uninstall                         $White: $Green uninstall all dependancies to the servers"
@@ -38,8 +38,8 @@ usage() {
     echo -e "$Red       configure                         $White: $Green deploy keys and configure dependancies"
     echo -e "$Red       deploy                            $White: $Green clone repo and deploy AITools into /opt/AITools"
     echo -e "$Red       monitor                           $White: $Green getting information for monitoring tools"
-    echo -e "$Red       mount                             $White: $Green mount ISCSI for $SRVBACKUP"
-    echo -e "$Red       unmount                           $White: $Green unmount ISCSI for $SRVBACKUP"
+    echo -e "$Red       mount <host> <src> <device>       $White: $Green mount ISCSI for $SRVBACKUP"
+    echo -e "$Red       umount <host> <device>            $White: $Green umount ISCSI for $SRVBACKUP"
     echo -e "$Red       start                             $White: $Green start all services to servers"
     echo -e "$Red       stop                              $White: $Green stop all services to servers"
     echo -e "$Red       restart                           $White: $Green restart all services to servers"
@@ -67,14 +67,6 @@ _deploy() {
 
 _monitor() {
     monitor
-}
-
-_mount() {
-    mount_iscsi
-}
-
-_unmount() {
-    unmount_iscsi
 }
 
 _start() {
@@ -138,10 +130,12 @@ case "$1" in
         _monitor
         ;;
     mount)
-        _mount
+        shift 1
+        mount $*
         ;;
-    unmount)
-        _unmount
+    umount)
+        shift 1
+        umount $*
         ;;
     start)
         _start
