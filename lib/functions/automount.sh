@@ -22,9 +22,8 @@ mount() {
 umount() {
     local username="$(whoami)"
     local hostname="$1"
-    local src="$2"
-    local dest="$3"
-    local cmd="umount $src $dest"
+    local dest="$2"
+    local cmd="umount $dest"
     RSH "$username" "$hostname" "$cmd"
     if [[ $? -ne 0 ]]; then
         my_log_error "Error during $cmd on $hostname"
