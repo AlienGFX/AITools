@@ -5,6 +5,34 @@
 # Contributor: Valentin NAINA
 # http://www.rkweb.fr
 
+mount() {
+    local username="$(whoami)"
+    local hostname="$1"
+    local src="$2"
+    local dest="$3"
+    local cmd="mount $src $dest"
+    RSH "$username" "$hostname" "$cmd"
+    if [[ $? -ne 0 ]]; then
+        my_log_error "Error during $cmd on $hostname"
+    else
+        my_log_success "$cmd on $hostname has been executed with success"
+    fi
+}
+
+umount() {
+    local username="$(whoami)"
+    local hostname="$1"
+    local src="$2"
+    local dest="$3"
+    local cmd="umount $src $dest"
+    RSH "$username" "$hostname" "$cmd"
+    if [[ $? -ne 0 ]]; then
+        my_log_error "Error during $cmd on $hostname"
+    else
+        my_log_success "$cmd on $hostname has been executed with success"
+    fi
+}
+
 mount_iscsi(){
     local username="$(whoami)"
     local src="/dev/vda"
