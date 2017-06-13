@@ -9,7 +9,7 @@ RSH() {
     local user=$1
     local host=$2
     local cmd=$3
-    ssh "$user@$host" "$cmd" > /dev/null 2>&1 &
+    ssh "$user@$host" "$cmd" > /dev/null 2>&1 # fix async call to get child pid err
     rshStatus=$?
 }
 
