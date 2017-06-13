@@ -152,7 +152,7 @@ updater() {
     for hosts in $*; do
         RSH root $hosts "$cmd > $tmpdist"
         if [[ $rshStatus -ne 0 ]]; then
-            my_log_error "Error during update on $hosts, more details: $tmpdist"
+            my_log_error "Error during update on $hosts. Probably service is down..."
         else
             my_log_success "Update on $hosts is success, more details: $tmpdist"
         fi
@@ -182,7 +182,7 @@ upgrader() {
     for hosts in $*; do
         RSH root $hosts "$cmd > $tmpdist"
         if [[ $rshStatus -ne 0 ]]; then
-            my_log_error "Error during upgrade on $hosts, more details: $tmpdist"
+            my_log_error "Error during upgrade on $hosts. Probably service is down..."
         else
             my_log_success "Upgrade on $hosts is success, more details: $tmpdist"
         fi
