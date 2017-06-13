@@ -76,9 +76,9 @@ install_package_csgo() {
     my_log_setup "Prepare CSGO environment"
     my_log_setup "Need 15 minutes for installation"
     for hosts in $*; do
-       my_log_setup run_cmd "scp $templateFile ${username}@${hosts}:/tmp > /dev/null 2>&1"
+       my_log_setup run_cmd scp $templateFile ${username}@${hosts}:/tmp > /dev/null 2>&1
         scp $templateFile ${username}@${hosts}:/tmp > /dev/null 2>&1
-        my_log_setup run_cmd "RSH $username $hosts $cmd"
+        my_log_setup run_cmd RSH $username $hosts $cmd
         my_log_setup "Installation in progress"
         my_log_setup "Please wait ..."
         RSH "$username" "$hosts" "$cmd"
