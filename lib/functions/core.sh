@@ -33,7 +33,8 @@ waitfor() {
 }
 
 run_cmd() {
-    echo "run_cmd: $@"
+    echo "run $@"
+    "$@"
 }
 
 check_connection_ssh() {
@@ -54,11 +55,9 @@ deploy() {
     local BUILD_NEW="$(expr $BUILD_CURRENT + 1)"
     my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
     waitfor
-    run_cmd "cd $OPT"
-    cd $OPT
+    run_cmd cd $OPT
     [[ -d AITools ]] && {
-        run_cmd "mv AITools AITools.old"
-        mv AITools AITools.old
+        run_cmd mv AITools AITools.old
         if [[ $? -ne 0 ]]; then
             my_log_error "error during move AITools to AITools.old"
             exit
@@ -69,16 +68,12 @@ deploy() {
         my_log_warning "Folder AITools does not exists. Ready to launch git clone command..."
     }
     my_log_setup "Clone $AISS_NAME github repository"
-    run_cmd "git clone $GIT_REPOSITORY"
-    git clone $GIT_REPOSITORY
+    run_cmd git clone $GIT_REPOSITORY
     my_log_setup "Create logs folder"
-    run_cmd "cd $AISS_NAME && mkdir logs"
-    cd $AISS_NAME && mkdir logs
+    run_cmd cd $AISS_NAME && mkdir logs
     my_log_setup "Apply chmod permissions"
-    run_cmd "chmod 750 aiss.sh"
-    chmod 750 aiss.sh
-    run_cmd "chmod 640 lib/functions/*"
-    chmod 640 lib/functions/*
+    run_cmd chmod 750 aiss.sh
+    run_cmd chmod 640 lib/functions/*
     cd $directory
     echo -e "New $AISS_NAME version has been deployed\n
     -------------------------------------------
