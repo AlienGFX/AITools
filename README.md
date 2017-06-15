@@ -67,13 +67,14 @@ $ sudo ./aiss.sh deploy
 Several parameters are available with the script :
 
 ```sh
-Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|reset|test-ssh}
+Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|syncssh|reset|test-ssh}
        install                           :  install all dependancies to the servers
        install-csgo <host>               :  install csgo and all dependancies to the servers
        uninstall                         :  uninstall all dependancies to the servers
        update  <host1|host2>             :  update all packages to the servers. Please enter the hostname
        upgrade <host1|host2>             :  upgrade all dependancies to the servers. Please enter the hostname
        service <host> <app> <action>     :  manage all services to servers with hostname appname action
+       syncssh <host>                    :  synchronize comserver ssh key to the servers. Please enter the hostname
        configure                         :  deploy keys and configure dependancies
        deploy                            :  clone repo and deploy AITools into /opt/AITools
        monitor                           :  getting information for monitoring tools
