@@ -28,13 +28,14 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 usage() {
-    echo -e "Usage: $BWhite$0 $BRed{install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|reset|test-ssh}"
+    echo -e "Usage: $BWhite$0 $BRed{install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|syncssh|reset|test-ssh}"
     echo -e "$Red       install                           $White: $Green install all dependancies to the servers"
     echo -e "$Red       install-csgo <host>               $White: $Green install csgo and all dependancies to the servers"
     echo -e "$Red       uninstall                         $White: $Green uninstall all dependancies to the servers"
     echo -e "$Red       update  <host1|host2>             $White: $Green update all packages to the servers. Please enter the hostname"
     echo -e "$Red       upgrade <host1|host2>             $White: $Green upgrade all dependancies to the servers. Please enter the hostname"
     echo -e "$Red       service <host> <app> <action>     $White: $Green manage all services to servers with hostname appname action"
+    echo -e "$Red       syncssh <host>                    $White: $Green synchronize comserver ssh key to the servers. Please enter the hostname"
     echo -e "$Red       configure                         $White: $Green deploy keys and configure dependancies"
     echo -e "$Red       deploy                            $White: $Green clone repo and deploy AITools into /opt/AITools"
     echo -e "$Red       monitor                           $White: $Green getting information for monitoring tools"
@@ -119,6 +120,10 @@ case "$1" in
     service)
         shift 1
         action_svc $*
+        ;;
+    syncssh)
+        shift 1
+        syncssh $@
         ;;
     configure)
         _configure
