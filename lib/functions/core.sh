@@ -48,6 +48,21 @@ check_connection_ssh() {
     done
 }
 
+syncssh() {
+    [[ ! $# -lt "1" ]] || {
+        my_log_error "Error while parsing args"
+        exit 1
+    }
+    for host in $*; do
+        run_cmd ssh-copy-id -i /root/.ssh/id_rsa.pub $host > /dev/null 2>&1
+        if [[ $? -ne 0 ]]; then
+            my_log_error "Problem during deploy keys from $hostname to $host"
+        else
+            my_log_success "RSA Public Key has been deployed successfully to $host"
+        fi
+    done
+}
+
 deploy() {
     local OPT="/opt"
     local BUILD_FOLDER="$logsdir/.gitbuild"
