@@ -16,37 +16,29 @@ logfile="$$.install_lgsm_csgo_$(date '+%Y%m%d_%H%M%S').log"
 format="sed -r s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
 
 run_cmd() {
-    echo "run_cmd: $@"
+    echo "run $@"
+    "$@"
 }
 
 # dependancies
-run_cmd "dpkg --add-architecture i386"
-dpkg --add-architecture i386
-
-run_cmd "apt-get update"
-apt-get update
-
-run_cmd "apt-get install -y \
-    mailutils postfix curl wget file unzip gzip bzip2 bsdmainutils \
-    python util-linux tmux lib32gcc1 libstdc++6 libstdc++6:i386"
-apt-get install -y \
+run_cmd dpkg --add-architecture i386
+run_cmd apt-get update
+run_cmd apt-get install -y \
     mailutils postfix curl wget file unzip gzip bzip2 bsdmainutils \
     python util-linux tmux lib32gcc1 libstdc++6 libstdc++6:i386
 
-
 for n in {1..5}; do
     # service account
-    useradd -m -d $HOMEDIR$n $USER$n -s $SHELL
-    echo $USER$n:$(echo $PASSWD | base64 -d) | $METHOD
+    run_cmd useradd -m -d $HOMEDIR$n $USER$n -s $SHELL
+    run_cmd echo $USER$n:$(echo $PASSWD | base64 -d) | $METHOD
 
     cmd="su - $USER$n -c"
 
     # downloading LGSM CSGO
-    $cmd "wget $LGSM_CSGO && chmod +x $INSTANCE_NAME"
+    run_cmd $cmd "wget $LGSM_CSGO && chmod +x $INSTANCE_NAME"
 
     # install CSGO
-    run_cmd "./$INSTANCE_NAME auto-install > /tmp/srv$n.$logfile"
-    $cmd "./$INSTANCE_NAME auto-install > /tmp/srv$n.$logfile"
+    run_cmd $cmd "./$INSTANCE_NAME auto-install > /tmp/srv$n.$logfile"
 
     # send mail
     cat "/tmp/srv$n.$logfile" | $format | mailx -a "From:$OWNER" -s "$(hostname): status csgo server installation $INSTANCE_NAME -- $n" $MAILER
