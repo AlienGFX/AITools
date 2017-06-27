@@ -31,6 +31,7 @@ SYS_WAVE_PRD_0="comserver"
 SYS_WAVE_PRD_1="einstein unxprddns01 unxprddns02"
 SYS_WAVE_PRD_2="unxprdmail01 unxprddb01 unxprddb02 unxprdweb01 unxprdvpn01"
 SYS_WAVE_PRD_3="unxprdsrcds03 unxprdsrcds04 unxprdsrcds05 unxprdsrcds06 unxprdmds01 unxprdts01"
+SYS_WAVE_PRD_4="cacti zabbix asterisk"
 
 SRVNFS="srv-nfs"
 SRVISCSI="srv-iscsi"
