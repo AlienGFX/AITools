@@ -118,7 +118,7 @@ deploy() {
     Build : $AISS_BUILD
     Version : $AISS_VERSION
     Date : $AISS_DATE
-    Owner : $AISS_USERDEV
+    Owner : $AISS_LAST_CONTRIBUTOR
     Path : $OPT/$AISS_NAME
     -------------------------------------------\n" > $BUILD_FOLDER
     echo -e "Log\n" >> $BUILD_FOLDER
