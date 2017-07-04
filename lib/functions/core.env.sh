@@ -46,9 +46,9 @@ PKG_BACKUP="backuppc open-iscsi"
 
 # global var
 AISS_NAME="AITools"
-AISS_DATE="02062017"
-AISS_BUILD="1000"
-AISS_VERSION="1.0"
+AISS_DATE="000000"
+AISS_BUILD="0"
+AISS_VERSION="0.0.0"
 AISS_PID="$$"
 
 # user params
