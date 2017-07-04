@@ -81,11 +81,12 @@ deploy() {
     local BUILD_NEW="$(increment_version $AISS_BUILD)"
     local BUILD_DATE="$(date +%Y%m%d)"
     local VERSION_NEW="$(increment_version $AISS_VERSION)"
-    local LAST_CONTRIBUTOR="$(whoami)"
+    local LAST_CONTRIBUTOR="$SUDO_USER"
     sed -i "s/^AISS_BUILD=.*/AISS_BUILD=\"$BUILD_NEW\"/" lib/functions/core.env.sh
     sed -i "s/^AISS_VERSION=.*/AISS_VERSION=\"$VERSION_NEW\"/" lib/functions/core.env.sh
     sed -i "s/^AISS_DATE=.*/AISS_DATE=\"$BUILD_DATE\"/" lib/functions/core.env.sh
-    sed -i "s/^AISS_USERDEV=.*/AISS_USERDEV=\"$LAST_CONTRIBUTOR\"/" lib/functions/core.env.sh
+    sed -i "s/^AISS_LAST_CONTRIBUTOR=.*/AISS_LAST_CONTRIBUTOR=\"$LAST_CONTRIBUTOR\"/" lib/functions/core.env.sh
+    source lib/functions/core.env.sh
     run_cmd git add lib/functions/core.env.sh
     run_cmd git commit -m "$AISS_NAME new build $AISS_BUILD version $AISS_VERSION new announcement"
     my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
