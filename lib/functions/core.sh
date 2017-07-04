@@ -89,6 +89,7 @@ deploy() {
     source lib/functions/core.env.sh
     run_cmd git add lib/functions/core.env.sh
     run_cmd git commit -m "$AISS_NAME new build $AISS_BUILD version $AISS_VERSION new announcement"
+    run_cmd git push origin master
     my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
     waitfor
     run_cmd cd $OPT
