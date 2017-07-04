@@ -63,11 +63,29 @@ syncssh() {
     done
 }
 
+increment_version() {
+    local VERSION="$1"
+    local INCREMENTED_VERSION=
+    if [[ "$VERSION" =~ .*\..* ]]; then
+        INCREMENTED_VERSION="${VERSION%.*}.$((${VERSION##*.}+1))"
+    else
+        INCREMENTED_VERSION="$((${VERSION##*.}+1))"
+    fi
+    echo "$INCREMENTED_VERSION"
+}
+
 deploy() {
     local OPT="/opt"
     local BUILD_FOLDER="$logsdir/.gitbuild"
     local BUILD_CURRENT=$AISS_BUILD
-    local BUILD_NEW="$(expr $BUILD_CURRENT + 1)"
+    local BUILD_NEW="$(increment_version $AISS_BUILD)"
+    local BUILD_DATE="$(date +%Y%m%d)"
+    local VERSION_NEW="$(increment_version $AISS_VERSION)"
+    sed -i "s/^AISS_BUILD=.*/AISS_BUILD=\"$BUILD_NEW\"/" lib/functions/core.env.sh
+    sed -i "s/^AISS_VERSION=.*/AISS_VERSION=\"$VERSION_NEW\"/" lib/functions/core.env.sh
+    sed -i "s/^AISS_DATE=.*/AISS_DATE=\"$BUILD_DATE\"/" lib/functions/core.env.sh
+    run_cmd git add lib/functions/core.env.sh
+    run_cmd git commit -m "$AISS_NAME new build $AISS_BUILD version $AISS_VERSION new announcement"
     my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
     waitfor
     run_cmd cd $OPT
@@ -111,7 +129,7 @@ deploy() {
     else
         local lastFile="$(ls -1rt $logsdir | tail -n1)"
         local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has success"
-        local build="[$AISS_NAME] version $AISS_VERSION build $BUILD_CURRENT has been deployed by $SUDO_USER"
+        local build="$AISS_NAME new build $AISS_BUILD version $AISS_VERSION new announcement"
         my_log_success "$FUNCNAME action has success, see more logs/$lastFile"
         mailer "$lastFile" "$subject"
         my_log_success "$build"
