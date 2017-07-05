@@ -17,7 +17,7 @@ pubkey="${deploydir}/pubkey"
 # mail config
 sendmail="on"
 inbox="AITools-production@rkservices.fr"
-whosend="admin@rkservices.fr kevin.lachages@gmail.com"
+whosend="admin@rkservices.fr"
 
 # git config
 GIT_REPOSITORY="git@github.com:AlienGFX/AITools.git"
