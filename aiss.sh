@@ -29,9 +29,10 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 usage() {
-    echo -e "Usage: $BWhite$0 $BRed{install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|syncssh|reset|test-ssh|shutdown}"
+    echo -e "Usage: $BWhite$0 $BRed{install|install-csgo|install-pkg|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|syncssh|reset|test-ssh|shutdown}"
     echo -e "$Red       install                           $White: $Green install all dependancies to the servers"
     echo -e "$Red       install-csgo <host>               $White: $Green install csgo and all dependancies to the servers"
+    echo -e "$Red       install-pkg <host> <packages>     $White: $Green specify all packages to install to servers with one hostname and most packages"
     echo -e "$Red       uninstall                         $White: $Green uninstall all dependancies to the servers"
     echo -e "$Red       update  <host1|host2>             $White: $Green update all packages to the servers. Please enter the hostname"
     echo -e "$Red       upgrade <host1|host2>             $White: $Green upgrade all dependancies to the servers. Please enter the hostname"
@@ -107,6 +108,10 @@ case "$1" in
     install-csgo)
         shift 1
         install_package_csgo $*
+        ;;
+    install-pkg)
+        shift 1
+        install_packages $*
         ;;
     uninstall)
         _uninstall

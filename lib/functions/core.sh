@@ -172,6 +172,38 @@ mailer() {
     fi
 }
 
+install_packages() {
+    [[ ! $# -lt "2" ]] || {
+        my_log_error "Error while parsing args"
+        exit 1
+    }
+    local username="$(whoami)"
+    local hostname="$1"
+    shift 1
+    local packages="$*"
+    local cmd="apt-get install -y $packages"
+    local tmpdist="/tmp/.$$_$(date '+%Y%m%d_%H%M%S')_$(hostname)_$FUNCNAME"
+    my_log_success "Calling $AISS_NAME version $AISS_VERSION to run $FUNCNAME action by user[$SUDO_USER]"
+    waitfor
+    RSH "$username" "$hostname" "$cmd > $tmpdist"
+    if [[ $rshStatus -ne 0 ]]; then
+        my_log_error "Error during install $packages packages on $hostname. Probably service is down..."
+    else
+        my_log_success "Install $packages packages on $hostname is success, more details: $tmpdist"
+    fi
+    if [[ $? -ne 0 ]]; then
+        local lastFile="$(ls -1rt $logsdir | tail -n1)"
+        local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has failed"
+        my_log_error "$FUNCNAME action has failed, see more logs/$lastFile"
+        mailer "$lastFile" "$subject"
+    else
+        local lastFile="$(ls -1rt $logsdir | tail -n1)"
+        local subject="$AISS_NAME version $AISS_VERSION action [$FUNCNAME] pid [$AISS_PID] has success"
+        my_log_success "$FUNCNAME action has success, see more logs/$lastFile"
+        mailer "$lastFile" "$subject"
+    fi
+}
+
 updater() {
     [[ ! $# -lt "1" ]] || {
         my_log_error "Error while parsing args"
