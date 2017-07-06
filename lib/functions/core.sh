@@ -6,10 +6,11 @@
 # http://www.rkweb.fr
 
 RSH() {
+    local SSH_ARGS="ServerAliveInterval 2"
     local user=$1
     local host=$2
     local cmd=$3
-    ssh "$user@$host" "$cmd" > /dev/null 2>&1 # fix async call to get child pid err
+    ssh -o $SSH_ARGS "$user@$host" "$cmd" > /dev/null 2>&1 # fix async call to get child pid err
     rshStatus=$?
 }
 
