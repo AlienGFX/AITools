@@ -67,9 +67,10 @@ $ sudo ./aiss.sh deploy
 Several parameters are available with the script :
 
 ```sh
-Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|syncssh|reset|test-ssh}
+Usage: ./aiss.sh {install|install-csgo|install-pkg|uninstall|update|upgrade|configure|deploy|monitor|mount|umount|start|stop|restart|status|save|service|syncssh|reset|test-ssh|shutdown}
        install                           :  install all dependancies to the servers
        install-csgo <host>               :  install csgo and all dependancies to the servers
+       install-pkg <host> <packages>     :  specify all packages to install to servers with one hostname and most packages
        uninstall                         :  uninstall all dependancies to the servers
        update  <host1|host2>             :  update all packages to the servers. Please enter the hostname
        upgrade <host1|host2>             :  upgrade all dependancies to the servers. Please enter the hostname
@@ -87,6 +88,7 @@ Usage: ./aiss.sh {install|install-csgo|uninstall|update|upgrade|configure|deploy
        save                              :  save source server to destination server
        reset                             :  delete all configuration files
        test-ssh                          :  test SSH connections from core-infra
+       shutdown <host1|host2>            :  shutdown mentionned servers. Please enter one or more hostname
 ```
 
 To have a working environment, please follow this order while testing the script (at least at the beggining) :
