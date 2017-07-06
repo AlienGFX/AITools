@@ -33,4 +33,3 @@ action_shutdown() {
         mailer "$lastFile" "$subject"
     fi
 }
-}

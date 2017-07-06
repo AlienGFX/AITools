@@ -49,7 +49,7 @@ usage() {
     echo -e "$Red       save                              $White: $Green save source server to destination server"
     echo -e "$Red       reset                             $White: $Green delete all configuration files"
     echo -e "$Red       test-ssh                          $White: $Green test SSH connections from core-infra"
-    echo -e "$Red       shutdown  <host1|host2>           $White: $Green shutdown mentionned servers. Please enter one or more hostname"
+    echo -e "$Red       shutdown <host1|host2>            $White: $Green shutdown mentionned servers. Please enter one or more hostname"
 }
 
 _install() {
@@ -99,8 +99,6 @@ _reset() {
 _test_ssh() {
     check_connection_ssh
 }
-
-
 
 case "$1" in
     install)
