@@ -15,10 +15,11 @@ action_shutdown() {
     waitfor
     for hosts in $*; do
         RSH root $hosts "$cmd"
-        if [[ $rshStatus -ne 0 ]]; then
-            my_log_error "Error during shutdown on $hosts. Host is probably already down..."
-        else
+        ping -c 4 $hosts > /dev/null 2>&1
+        if [[ $? -eq 1 ]]; then
             my_log_success "Shutdown on $hosts has succeed"
+        else
+            my_log_error "Error during shutdown on $hosts. Host is probably already down..."
         fi
     done
     if [[ $? -ne 0 ]]; then
