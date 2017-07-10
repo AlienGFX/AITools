@@ -18,7 +18,7 @@ action_shutdown() {
         waitfor > /dev/null 2>&1
         ping -c 4 $hosts > /dev/null 2>&1
         if [[ $? -eq 1 ]]; then
-            my_log_success "Shutdown on $hosts has succeed"
+            my_log_success "Node $hosts has been shutdown successfully"
         else
             my_log_error "Error during shutdown on $hosts. Host is probably already down..."
         fi
