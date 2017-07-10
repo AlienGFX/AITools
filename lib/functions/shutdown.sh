@@ -15,6 +15,7 @@ action_shutdown() {
     waitfor
     for hosts in $*; do
         RSH root $hosts "$cmd"
+        waitfor > /dev/null 2>&1
         ping -c 4 $hosts > /dev/null 2>&1
         if [[ $? -eq 1 ]]; then
             my_log_success "Shutdown on $hosts has succeed"
