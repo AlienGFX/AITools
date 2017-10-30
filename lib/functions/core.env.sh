@@ -30,7 +30,7 @@ SYS_WAVE_DEV_0="chimere hydre"
 SYS_WAVE_PRD_0="comserver"
 SYS_WAVE_PRD_1="einstein unxprddns01 unxprddns02"
 SYS_WAVE_PRD_2="unxprdmail01 unxprdweb01 unxprdvpn01"
-SYS_WAVE_PRD_3="unxprdts01"
+SYS_WAVE_PRD_3="unxprdts01 unxprdbot01"
 SYS_WAVE_PRD_4="unxprdsrcds01 unxprdsrcds02 unxprdsrcds03 unxprdsrcds04 unxprdsrcds05 unxprdsrcds06"
 
 SRVNFS="srv-nfs"
