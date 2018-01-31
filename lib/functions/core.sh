@@ -39,7 +39,7 @@ run_cmd() {
 }
 
 check_connection_ssh() {
-    for host in $SYS_WAVE_DEV_0 $SYS_WAVE_PRD_1 $SYS_WAVE_PRD_2 $SYS_WAVE_PRD_3 $SYS_WAVE_PRD_4; do
+    for host in $SYS_WAVE_PRD_1 $SYS_WAVE_PRD_2 $SYS_WAVE_PRD_3 $SYS_WAVE_PRD_4; do
         RSH root $host hostname
         if [[ $rshStatus -ne 0 ]]; then
             my_log_error "SSH connection for $host has failed. Please check the ssh key"

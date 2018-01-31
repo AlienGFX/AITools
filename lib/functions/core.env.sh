@@ -26,7 +26,6 @@ GIT_REPOSITORY="git@github.com:AlienGFX/AITools.git"
 SYS_NODE_1="ns301969.ip-94-23-0.eu"
 SYS_NODE_2="ns3014083.ip-149-202-65.eu"
 
-SYS_WAVE_DEV_0="chimere hydre"
 SYS_WAVE_PRD_0="comserver"
 SYS_WAVE_PRD_1="einstein unxprddns01 unxprddns02"
 SYS_WAVE_PRD_2="unxprdmail01 unxprdweb01 unxprdgit01 unxprdvpn01"
